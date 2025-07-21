@@ -26,11 +26,11 @@ class Profile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    image = models.ImageField()
-    description = models.CharField(max_length=255)
+    image = models.ImageField(blank=True, null=True)
+    description = models.TextField(max_length=250)
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user
+        return self.user.email

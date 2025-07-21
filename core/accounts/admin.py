@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import CustomUser
+from .models import CustomUser, Profile
 
 # Register your models here.
 
@@ -18,14 +18,21 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             "classes": ("wide",),
             "fields": (
-                "email", "password1", "password2", "is_staff","is_active"
+                "email", "password1", "password2", "is_staff", "is_active"
             )}
         ),
-        ('Permissions',{
-            'fileds': (
-                "groups", "user_permissions"
-            )
-        })
+        ("permissions", {
+            "fields": ("groups", "user_permissions")
+        }),
     )
     search_fields = ("email",)
     ordering = ("email",)
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    model=Profile
+    list_display = ('user', 'first_name', 'last_name',)
+    list_filter = ('created_date',)
+    readonly_fields = ('user',)
+    search_fields = ('first_name', 'last_name', 'description',)
+    ordering = ('user',)
