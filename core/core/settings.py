@@ -16,7 +16,6 @@ from decouple import config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,8 +25,7 @@ SECRET_KEY = config('MY_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('MY_DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('MY_ALLOWED_HOSTS', default='localhost', cast=Csv())
-
+ALLOWED_HOSTS = config('MY_ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 
@@ -135,3 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # user manager config
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+# Change default 'accounts/Profile' for success login to '/'
+LOGIN_REDIRECT_URL = 'todo:task_list'
