@@ -1,11 +1,13 @@
 from django.db import models
-from accounts.models import Profile
+from django.conf import settings
+
+
 class Task(models.Model):
     '''
     Create Task model
     '''
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
     complete = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(auto_now_add=True)
